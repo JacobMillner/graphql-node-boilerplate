@@ -1,0 +1,20 @@
+version: "3"
+services:
+  app:
+    container_name: ${APP_NAME}_server
+    restart: always
+    build: ./server
+    env_file: .env
+    depends_on: mongo
+    ports:
+      - "80:3000"
+    volumes:
+      - ./server:/server
+    links:
+      - mongo
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
